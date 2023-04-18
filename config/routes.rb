@@ -3,4 +3,9 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+  root 'random_jokes#index'
+  get 'random', to: 'random_jokes#index'
+
+  resources :jokes, only: [:create, :index]
+
 end

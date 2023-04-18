@@ -1,0 +1,25 @@
+<h1>Random Jokes</h1>
+
+<h2>Dad Joke</h2>
+<% if @random_dad_joke.present? %>
+  <p><%= @random_dad_joke %></p>
+  <%= form_with model: Joke.new, url: jokes_path, local: true do |form| %>
+    <%= form.hidden_field :content, value: @random_dad_joke %>
+    <%= form.hidden_field :source, value: 'dad' %>
+    <%= form.submit 'Save Dad Joke' %>
+  <% end %>
+<% else %>
+  <p>Error: Sometimes a Dad joke is so bad, even the API refuses to serve them.</p>
+<% end %>
+
+<h2>Chuck Norris Joke</h2>
+<% if @random_chuck_joke.present? %>
+  <p><%= @random_chuck_joke %></p>
+  <%= form_with model: Joke.new, url: jokes_path, local: true do |form| %>
+    <%= form.hidden_field :content, value: @random_chuck_joke %>
+    <%= form.hidden_field :source, value: 'chuck' %>
+    <%= form.submit 'Save Chuck Norris Joke' %>
+  <% end %>
+<% else %>
+  <p>Error: When Chuck Norris jokes aren't funny, the API is too afraid to return them.</p>
+<% end %>
