@@ -23,3 +23,5 @@
 <% else %>
   <p>Error: When Chuck Norris jokes aren't funny, the API is too afraid to return them.</p>
 <% end %>
+
+<%= button_to 'Delete all jokes', jokes_path, method: :delete, data: { confirm: 'Are you sure?' } %>

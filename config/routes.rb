@@ -7,5 +7,8 @@ Rails.application.routes.draw do
   get 'random', to: 'random_jokes#index'
 
   resources :jokes, only: [:create, :index]
+  delete 'jokes', to: 'jokes#destroy_all'
+
+
 
 end

@@ -1,0 +1,8 @@
+<h1>All Jokes</h1>
+
+<% @jokes.each do |joke| %>
+  <div>
+    <p><%= joke.content %></p>
+    <p><%= joke.source %></p>
+  </div>
+<% end %>
