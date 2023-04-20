@@ -1,25 +1,35 @@
 class JokesController < ApplicationController
     def create
       @joke = Joke.new(joke_params)
-  
+    
       if @joke.save
-        flash[:notice] = 'Joke created successfully.'
-        redirect_to root_path
+        respond_to do |format|
+          format.html do
+            flash[:notice] = 'Joke created successfully.'
+            redirect_to root_path
+          end
+          format.json { render json: { joke: @joke }, status: :created }
+        end
       else
-        render json: { errors: @joke.errors.full_messages }, status: :unprocessable_entity
+        respond_to do |format|
+          format.html do
+            flash.now[:alert] = 'Invalid joke parameters'
+            render 'random_jokes/index', status: :unprocessable_entity
+          end
+          format.json { render json: { errors: @joke.errors.full_messages }, status: :unprocessable_entity }
+        end
       end
     end
-
+  
     def destroy_all
-        Joke.delete_all
-        flash[:notice] = 'All jokes deleted successfully.'
-        redirect_to jokes_path
-      end
-      
-
+      Joke.delete_all
+      flash[:notice] = 'All jokes deleted successfully.'
+      redirect_to jokes_path
+    end
+  
     def index
-        @jokes = Joke.all
-      end
+      @jokes = Joke.all
+    end
   
     private
   
