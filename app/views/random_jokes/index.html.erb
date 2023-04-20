@@ -1,27 +1,124 @@
-<h1>Random Jokes</h1>
+<style style="display: none;">
 
-<h2>Dad Joke</h2>
+#new-jokes-link, #new-jokes-link-m {
+  text-decoration: underline;
+}
+
+</style>
+
+<script style="display: none;">
+
+
+
+function handleFormSubmit(event) {
+  event.preventDefault();
+  const form = event.target.closest('form');
+  fetch(form.action, {
+    method: form.method,
+    body: new FormData(form),
+    headers: { 'Accept': 'application/json' },
+  })
+  .then(response => response.json())
+  .then(data => {
+    // Request a new dad joke and pass the form element
+    fetchNewDadJoke(form);
+    showSaveSuccess();
+  })
+  .catch(error => {
+    console.error(error);
+  });
+}
+
+function handleRefreshJoke(event) {
+  event.preventDefault();
+  const form = event.target.closest('form');
+  // Refresh the joke by calling fetchNewDadJoke
+  fetchNewDadJoke(form);
+}
+
+
+function fetchNewDadJoke(form) {
+  fetch('/new_dad_joke', {
+    method: 'GET',
+    headers: { 'Accept': 'application/json' },
+  })
+  .then(response => response.json())
+  .then(data => {
+    // Update the joke content of the specific card
+    const jokeCardContent = form.querySelector('.card-content.grey.lighten-3');
+    jokeCardContent.textContent = data.joke;
+    // Update the hidden input value of the specific form
+    const jokeContentInput = form.querySelector('input[name="joke[content]"]');
+    jokeContentInput.value = data.joke;
+  })
+  .catch(error => {
+    console.error(error);
+  });
+}
+
+
+
+function showSaveSuccess() {
+  const saveSuccess = document.getElementById('save-success');
+  saveSuccess.classList.remove('hidden');
+  saveSuccess.style.opacity = '1';
+
+  setTimeout(() => {
+    saveSuccess.style.opacity = '0';
+    setTimeout(() => {
+      saveSuccess.classList.add('hidden');
+    }, 400);
+  }, 400);
+}
+
+
+</script>
+
+<section id="new-jokes" class="column">
+
+<div class="flex-wrap">
+
 <% if @random_dad_joke.present? %>
-  <p><%= @random_dad_joke %></p>
-  <%= form_with model: Joke.new, url: jokes_path, local: true do |form| %>
+
+  <%= form_with model: Joke.new, url: jokes_path, local: true, html: {id: "dad-joke-form", 'data-remote': "true", class: "card joke-card column"} do |form| %>
+    <span class="f-large bold">From: <a href="https://icanhazdadjoke.com/api" target="_blank">icanhazdadjoke.com</a></span>
+    <div class="w-100 card-content grey lighten-3">
+    <%= @random_dad_joke %>
+    </div>
     <%= form.hidden_field :content, value: @random_dad_joke %>
     <%= form.hidden_field :source, value: 'dad' %>
-    <%= form.submit 'Save Dad Joke' %>
+    <div class="justify-around w-100 funny-or-not">
+        <%= form.button "❌", type: 'submit', onclick: "handleRefreshJoke(event)", class: "btn-floating grey lighten-2 border f-large" %>
+      <%= form.button "😆", type: 'submit', onclick: "handleFormSubmit(event)", class: "btn-floating green lighten-2 border f-large" %>
+    </div>
+    <div id="save-success" class="save-success hidden">saved</div>
   <% end %>
+
 <% else %>
+
   <p>Error: Sometimes a Dad joke is so bad, even the API refuses to serve them.</p>
+
 <% end %>
 
-<h2>Chuck Norris Joke</h2>
-<% if @random_chuck_joke.present? %>
-  <p><%= @random_chuck_joke %></p>
-  <%= form_with model: Joke.new, url: jokes_path, local: true do |form| %>
-    <%= form.hidden_field :content, value: @random_chuck_joke %>
-    <%= form.hidden_field :source, value: 'chuck' %>
-    <%= form.submit 'Save Chuck Norris Joke' %>
+
+<% if @random_jokeapi_joke.present? %>
+
+  <%= form_with model: Joke.new, url: jokes_path, local: true, html: {id: "jokeapi-joke-form", 'data-remote': "true", class: "card joke-card column"} do |form| %>
+    <span class="f-large bold">From: <a href="https://jokeapi.dev/" target="_blank">jokeapi.dev</a></span>
+    <div class="w-100 card-content grey lighten-3">
+      <%= @random_jokeapi_joke %>
+    </div>
+    <%= form.hidden_field :content, value: @random_jokeapi_joke %>
+    <%= form.hidden_field :source, value: 'jokesapi' %>
+    <div class="justify-around w-100 funny-or-not">
+        <%= form.button "❌", type: 'submit', onclick: "handleRefreshJoke(event)", class: "btn-floating grey lighten-3 border f-large" %>
+      <%= form.button "😆", type: 'submit', onclick: "handleFormSubmit(event)", class: "btn-floating green lighten-1 border f-large" %>
+    </div>
   <% end %>
+
 <% else %>
-  <p>Error: When Chuck Norris jokes aren't funny, the API is too afraid to return them.</p>
+  <p>Error: JokeAPI didn't return 200. It must be kidding.</p>
 <% end %>
 
-<%= button_to 'Delete all jokes', jokes_path, method: :delete, data: { confirm: 'Are you sure?' } %>
+</div>
+</section>

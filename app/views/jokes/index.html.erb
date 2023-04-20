@@ -1,8 +1,33 @@
-<h1>All Jokes</h1>
+<style style="display: none;">
 
-<% @jokes.each do |joke| %>
-  <div>
-    <p><%= joke.content %></p>
-    <p><%= joke.source %></p>
-  </div>
+#set-link, #set-link-m {
+  text-decoration: underline;
+}
+
+</style>
+
+<section id="saved-jokes">
+<% if @jokes.present? %>
+  <% @jokes.group_by(&:source).each do |source, jokes| %>
+    <span class="f-large bold">My <%= source %> jokes</span>
+    <ol>
+    <% jokes.each do |joke| %>
+      <li>
+        <%= joke.content %>
+      </li>
+    <% end %>
+    </ol>
+  <% end %>
+  
+  <br><br>
+  <%= button_to 'Delete all jokes', jokes_path, method: :delete, data: { confirm: 'Are you sure?' }, html: {id: "delete-all-form"} %>
+  <br><br>
 <% end %>
+<% if @jokes.blank? %>
+  <h4 class="center-align">Jokes you enjoyed will be saved here.</h4>
+<% end %>
+
+
+
+
+</section>

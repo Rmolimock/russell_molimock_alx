@@ -13,3 +13,236 @@
  *= require_tree .
  *= require_self
  */
+
+ :root {
+    --primary-color: rgb(32, 75, 108);
+    --primary-color-dark: rgb(32, 75, 108);
+    --primary-border: 1px solid var(--primary-color);
+    --primary-light: #fafafa;
+    --light-background: var(--primary-light);
+}
+
+.border {
+    border: var(--primary-border);
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    overflow-y: scroll;
+}
+
+.justify-center {
+    display: flex;
+    justify-content: center;
+}
+
+.justify-center-all *, .justify-center-all * {
+    display: flex;
+    justify-content: center;
+}
+
+.align-center {
+    display: flex;
+    align-items: center;
+}
+
+.align-center-all *, .align-center-all * {
+    display: flex;
+    align-items: center;
+}
+
+.justify-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+.justify-between-all *, .justify-between-all * {
+    display: flex;
+    justify-content: space-between;
+}
+
+.justify-around {
+    display: flex;
+    justify-content: space-around;
+}
+
+.justify-around-all *, .justify-around-all * {
+    display: flex;
+    justify-content: space-around;
+}
+
+.justify-end {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.justify-end-all *, .justify-end-all * {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.justify-evenly {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.justify-evenly-all *, .justify-evenly-all * {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#nav-links {
+    display: none;
+}
+
+
+.f-large {
+    font-size: large;
+}
+
+.logo {
+    margin-right: 12px;
+}
+.no-shadow {
+    box-shadow: none;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+#main-content {
+    min-height: 80vh;
+}
+
+.flex-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+#saved-jokes, #new-jokes {
+    padding-top: 3rem;
+}
+
+.bg-primary, .bg-primary * {
+    background-color: var(--primary-color);
+}
+
+.bg-light, .bg-light * {
+    background-color: var(--primary-light);
+}
+
+.h-100 {
+    height: 100%;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.card-content {
+    height: 100%;
+    margin-top: 1rem;
+}
+
+.joke-card {
+    min-width: 333px;
+    max-width: 333px;
+}
+
+.f-largest {
+    font-size: x-large;
+}
+
+.f-large {
+    font-size: large;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.card {
+    padding: 9px;
+    background-color: white;
+    justify-content: space-between;
+    min-height: 250px;
+}
+
+.funny-or-not {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    background-color: white;
+}
+
+.flip-direction {
+    display: block;
+}
+
+.rows {
+    display: flex;
+    flex-direction: row;
+}
+
+#nav-links-mobile * {
+    background-color: var(--primary-light);
+    margin-top: 2rem;
+}
+
+#nav-links-mobile > *:hover {
+    font-weight: bold;
+}
+
+.save-success {
+    position: fixed;
+    top: 7px;
+    right: 12px;
+    width: fit-content;
+    background-color: #7dcc80;
+    color: white;
+    padding: 9px;
+    font-size: large;
+    border-radius: 7px;
+    z-index: 100;
+    transition: opacity 0.5s;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+
+@media only screen and (min-width: 800px) {
+    .f-largest {
+        font-size: xx-large;
+    }
+    
+    .flip-direction {
+        display: flex;
+        flex-direction: row;
+    }
+    #russell {
+        display: none;
+    }
+    #nav-links {
+        display: flex;
+        align-items: end;
+        min-width: 300px;
+    }
+    #nav-links-mobile {
+        display: none;
+    }
+
+    .save-success {
+        top: 11%;
+        right: 48%;
+        width: 4%;
+    }
+}
