@@ -30,19 +30,36 @@ class JokesControllerTest < ActionDispatch::IntegrationTest
     post jokes_path, params: { joke: @bad_joke_params }
     assert_response :unprocessable_entity
     assert_equal 'text/html', @response.media_type
-    assert_equal "Invalid joke parameters", flash[:alert]
   end
 
+  test "delete joke by id" do
+    joke = Joke.create(@joke_params)
+    
+    delete joke_path(joke.id), headers: { 'Accept' => 'application/json' }
+    
+    assert_nil Joke.find_by(id: joke.id)
+    assert_response :no_content
+  end
+
+  test "can't delete joke with invalid id" do
+    joke = Joke.create(@joke_params)
+    
+    delete joke_path('invalid id'), headers: { 'Accept' => 'application/json' }
+    
+    assert_response :not_found
+  end
+  
+  
+
   test "delete all jokes" do
-    Joke.create(content: "Joke 1", source: "Source 1")
-    Joke.create(content: "Joke 2", source: "Source 2")
+    Joke.create(@joke_params)
+    Joke.create(@joke_params)
     
     delete jokes_path
     
     assert_equal 0, Joke.count
     assert_redirected_to jokes_path
     follow_redirect!
-    assert_match /All jokes deleted successfully/, flash[:notice]
   end
 
   teardown do

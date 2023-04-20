@@ -12,6 +12,7 @@ class RandomJokesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "dad joke response is ok" do
+    # tests handle both good and bad responses from the various joke APIs.
     begin
       assert_not_nil assigns(:random_dad_joke)
     rescue
@@ -24,6 +25,14 @@ class RandomJokesControllerTest < ActionDispatch::IntegrationTest
       assert_not_nil assigns(:random_chuck_joke)
     rescue
       assert_equal assigns(:random_chuck_joke), "Error: When Chuck Norris jokes aren't funny, the API is too afraid to return them."
+    end
+  end
+
+  test "jokeAPI response is ok" do
+    begin
+      assert_not_nil assigns(:random_jokeapi_joke)
+    rescue
+      assert_equal assigns(:random_jokeapi_joke), "Error: JokeAPI didn't return 200. It must be kidding."
     end
   end
 end
