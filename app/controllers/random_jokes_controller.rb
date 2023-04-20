@@ -4,12 +4,15 @@ class RandomJokesController < ApplicationController
   
     def index
       @random_dad_joke = fetch_random_dad_joke
-      @random_chuck_joke = fetch_random_chuck_joke
       @random_jokeapi_joke = fetch_random_jokeapi_joke
     end
 
     def new_dad_joke
       render json: { joke: fetch_random_dad_joke }
+    end
+
+    def new_jokeapi_joke
+        render json: { joke: fetch_random_jokeapi_joke }
     end
   
     private
@@ -26,21 +29,6 @@ class RandomJokesController < ApplicationController
         JSON.parse(response.body)['joke']
       rescue
         "Error: Sometimes a Dad joke is so bad, even the API refuses to serve them."
-      end
-    end
-  
-    def fetch_random_chuck_joke
-      begin
-        uri = URI('https://api.chucknorris.io/jokes/random')
-        http = Net::HTTP.new(uri.host, uri.port)
-        http.use_ssl = true
-        headers = {'Accept' => 'application/json'}
-      
-        request = Net::HTTP::Get.new(uri, headers)
-        response = http.request(request)
-        JSON.parse(response.body)['value']
-      rescue
-        "Error: When Chuck Norris jokes aren't funny, the API is too afraid to return them."
       end
     end
 
