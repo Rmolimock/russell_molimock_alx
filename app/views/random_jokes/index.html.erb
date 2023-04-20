@@ -13,6 +13,8 @@
 function handleFormSubmit(event) {
   event.preventDefault();
   const form = event.target.closest('form');
+  const apiUrl = form.dataset.apiUrl;
+
   fetch(form.action, {
     method: form.method,
     body: new FormData(form),
@@ -20,8 +22,7 @@ function handleFormSubmit(event) {
   })
   .then(response => response.json())
   .then(data => {
-    // Request a new dad joke and pass the form element
-    fetchNewDadJoke(form);
+    fetchNewJoke(form, apiUrl);
     showSaveSuccess();
   })
   .catch(error => {
@@ -32,24 +33,34 @@ function handleFormSubmit(event) {
 function handleRefreshJoke(event) {
   event.preventDefault();
   const form = event.target.closest('form');
-  // Refresh the joke by calling fetchNewDadJoke
-  fetchNewDadJoke(form);
+  const apiUrl = form.dataset.apiUrl;
+  fetchNewJoke(form, apiUrl);
 }
 
 
-function fetchNewDadJoke(form) {
-  fetch('/new_dad_joke', {
+function fetchNewJoke(form, apiUrl) {
+  fetch(apiUrl, {
     method: 'GET',
     headers: { 'Accept': 'application/json' },
   })
   .then(response => response.json())
   .then(data => {
-    // Update the joke content of the specific card
     const jokeCardContent = form.querySelector('.card-content.grey.lighten-3');
-    jokeCardContent.textContent = data.joke;
-    // Update the hidden input value of the specific form
+    let joke;
+
+    if (apiUrl === '/new_dad_joke') {
+      joke = data.joke;
+    } else if (apiUrl === '/new_official_joke') {
+      joke = data.joke;
+    } else if (apiUrl === '/new_jokeapi_joke') {
+      joke = data.setup ? data.setup + ' ' + data.delivery : data.joke;
+    } else if (apiUrl === '/new_geek_joke') {
+      joke = data.joke;
+    }
+
+    jokeCardContent.textContent = joke;
     const jokeContentInput = form.querySelector('input[name="joke[content]"]');
-    jokeContentInput.value = data.joke;
+    jokeContentInput.value = joke;
   })
   .catch(error => {
     console.error(error);
@@ -80,7 +91,7 @@ function showSaveSuccess() {
 
 <% if @random_dad_joke.present? %>
 
-  <%= form_with model: Joke.new, url: jokes_path, local: true, html: {id: "dad-joke-form", 'data-remote': "true", class: "card joke-card column"} do |form| %>
+  <%= form_with model: Joke.new, url: jokes_path, local: true, html: {id: "dad-joke-form", 'data-remote': "true", 'data-api-url': "/new_dad_joke", class: "card joke-card column"} do |form| %>
     <span class="f-large bold">From: <a href="https://icanhazdadjoke.com/api" target="_blank">icanhazdadjoke.com</a></span>
     <div class="w-100 card-content grey lighten-3">
     <%= @random_dad_joke %>
@@ -103,7 +114,7 @@ function showSaveSuccess() {
 
 <% if @random_jokeapi_joke.present? %>
 
-  <%= form_with model: Joke.new, url: jokes_path, local: true, html: {id: "jokeapi-joke-form", 'data-remote': "true", class: "card joke-card column"} do |form| %>
+  <%= form_with model: Joke.new, url: jokes_path, local: true, html: {id: "jokeapi-joke-form", 'data-remote': "true", 'data-api-url': "/new_jokeapi_joke", class: "card joke-card column"} do |form| %>
     <span class="f-large bold">From: <a href="https://jokeapi.dev/" target="_blank">jokeapi.dev</a></span>
     <div class="w-100 card-content grey lighten-3">
       <%= @random_jokeapi_joke %>
@@ -111,13 +122,55 @@ function showSaveSuccess() {
     <%= form.hidden_field :content, value: @random_jokeapi_joke %>
     <%= form.hidden_field :source, value: 'jokesapi' %>
     <div class="justify-around w-100 funny-or-not">
-        <%= form.button "❌", type: 'submit', onclick: "handleRefreshJoke(event)", class: "btn-floating grey lighten-3 border f-large" %>
-      <%= form.button "😆", type: 'submit', onclick: "handleFormSubmit(event)", class: "btn-floating green lighten-1 border f-large" %>
+        <%= form.button "❌", type: 'submit', onclick: "handleRefreshJoke(event)", class: "btn-floating grey lighten-3 f-large" %>
+      <%= form.button "😆", type: 'submit', onclick: "handleFormSubmit(event)", class: "btn-floating green lighten-1 f-large" %>
     </div>
   <% end %>
 
 <% else %>
   <p>Error: JokeAPI didn't return 200. It must be kidding.</p>
+<% end %>
+
+</div>
+
+<div class="flex-wrap align-start">
+
+<% if @random_official_joke.present? %>
+
+  <%= form_with model: Joke.new, url: jokes_path, local: true, html: {id: "official-joke-form", 'data-remote': "true", 'data-api-url': "/new_official_joke", class: "card joke-card column"} do |form| %>
+    <span class="f-large bold">From: <a href="https://official-joke-api.appspot.com/random_joke" target="_blank">official-joke-api</a></span>
+    <div class="w-100 card-content grey lighten-3">
+      <%= @random_official_joke %>
+    </div>
+    <%= form.hidden_field :content, value: @random_official_joke %>
+    <%= form.hidden_field :source, value: 'official' %>
+    <div class="justify-around w-100 funny-or-not">
+        <%= form.button "❌", type: 'submit', onclick: "handleRefreshJoke(event)", class: "btn-floating grey lighten-3 f-large" %>
+      <%= form.button "😆", type: 'submit', onclick: "handleFormSubmit(event)", class: "btn-floating green lighten-1 f-large" %>
+    </div>
+  <% end %>
+
+<% else %>
+  <p>Error: The Official Joke API is officially a joke. It returned a bad response, sorry!.</p>
+<% end %>
+
+<% if @random_geek_joke.present? %>
+
+  <%= form_with model: Joke.new, url: jokes_path, local: true, html: {id: "geek-joke-form", 'data-remote': "true", 'data-api-url': "/new_geek_joke", class: "card joke-card column"} do |form| %>
+    <span class="f-large bold">From: <a href="https://geek-jokes.sameerkumar.website/api" target="_blank">geek-jokes.sameerkumar</a></span>
+    <div class="w-100 card-content grey lighten-3">
+      <%= @random_geek_joke %>
+    </div>
+    <%= form.hidden_field :content, value: @random_geek_joke %>
+    <%= form.hidden_field :source, value: 'geek' %>
+    <div class="justify-around w-100 funny-or-not">
+        <%= form.button "❌", type: 'submit', onclick: "handleRefreshJoke(event)", class: "btn-floating grey lighten-3 f-large" %>
+      <%= form.button "😆", type: 'submit', onclick: "handleFormSubmit(event)", class: "btn-floating green lighten-1 f-large" %>
+    </div>
+  <% end %>
+
+<% else %>
+  <p>Error: The geeks at geek-jokes messed up. Bad response.</p>
 <% end %>
 
 </div>

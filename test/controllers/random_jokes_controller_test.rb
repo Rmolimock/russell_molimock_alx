@@ -4,7 +4,7 @@ class RandomJokesControllerTest < ActionDispatch::IntegrationTest
   include Rails.application.routes.url_helpers
   
   def setup
-    get random_url
+    get root_url
   end
 
   test "home page response is ok" do
@@ -20,11 +20,11 @@ class RandomJokesControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "chuck norris joke response is ok" do
+  test "officialjokeapi joke response is ok" do
     begin
-      assert_not_nil assigns(:random_chuck_joke)
+      assert_not_nil assigns(:random_official_joke)
     rescue
-      assert_equal assigns(:random_chuck_joke), "Error: When Chuck Norris jokes aren't funny, the API is too afraid to return them."
+      assert_equal assigns(:random_official_joke), "Error: The Official Joke API is officially a joke. It returned a bad response, sorry!."
     end
   end
 
@@ -35,4 +35,14 @@ class RandomJokesControllerTest < ActionDispatch::IntegrationTest
       assert_equal assigns(:random_jokeapi_joke), "Error: JokeAPI didn't return 200. It must be kidding."
     end
   end
+
+  test "geek joke response is ok" do
+    begin
+      assert_not_nil assigns(:random_geek_joke)
+    rescue
+      assert_equal assigns(:random_geek_joke), "Error: The geeks at geek-jokes messed up. Bad response."
+    end
+  end
+
 end
+

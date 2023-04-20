@@ -4,8 +4,11 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
   root 'random_jokes#index'
-  get 'random', to: 'random_jokes#index'
-  get '/new_dad_joke', to: 'random_jokes#new_dad_joke', as: 'new_dad_joke'
+  
+  get '/new_dad_joke', to: 'random_jokes#new_dad_joke'
+  get '/new_official_joke', to: 'random_jokes#new_official_joke'
+  get '/new_jokeapi_joke', to: 'random_jokes#new_jokeapi_joke'
+  get '/new_geek_joke', to: 'random_jokes#new_geek_joke'
 
   
   resources :jokes, only: [:create, :index, :destroy]
