@@ -27,8 +27,20 @@ function handleDeleteJokeClick(event) {
       if (response.ok) {
         // Remove the li element from the DOM
         const cardDiv = span.closest('.card');
-
         cardDiv.remove();
+
+        // Check if there are no more jokes left
+        const remainingJokes = document.querySelectorAll('.card');
+        if (remainingJokes.length === 0) {
+          const savedJokesSection = document.getElementById('saved-jokes');
+          const noJokesImagePath = savedJokesSection.dataset.noJokesImagePath;
+          savedJokesSection.innerHTML = `
+            <div class="column w-100 h-100 align-center">
+              <span id="no-saved-jokes" class="w-100 f-large justify-center">Laugh react to jokes to build up your set.</span>
+              <image src="${noJokesImagePath}" width=333 height=300>
+            </div>
+          `;
+        }
       } else {
         console.error('Error deleting the joke');
       }
@@ -38,6 +50,8 @@ function handleDeleteJokeClick(event) {
     });
   }
 }
+
+
 
 function getMetaContent(name) {
   const element = document.querySelector(`meta[name="${name}"]`);
@@ -71,7 +85,8 @@ function handleDeleteAllJokesClick(event) {
 
 </script>
 
-<section id="saved-jokes">
+<section id="saved-jokes" data-no-jokes-image-path="<%= asset_path('no-jokes.gif') %>">
+
   <% if @jokes.present? %>
     <% @jokes.group_by(&:source).each do |source, jokes| %>
       <span class="f-large bold">My <%= source %> jokes</span>
