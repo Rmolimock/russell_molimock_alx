@@ -23,11 +23,11 @@
     <header class="align-center">
       <nav class="container no-shadow flip-direction align-center justify-between">
         <div class="f-largest">
-          <%= link_to "Standup Studio", random_path, style: 'vertical-align: middle;' %>
+          <%= link_to "Standup Studio", root_path, style: 'vertical-align: middle;' %>
         </div>
         <div id="nav-links" class="flip-direction f-large justify-between">
-          <%= link_to "Discover", random_path, id: "new-jokes-link" %>
-          <%= link_to "My Set", jokes_path, id: "set-link" %>
+          <%= link_to "Discover", root_path, id: "new-jokes-link" %>
+          <%= link_to "Rehearse", jokes_path, id: "set-link" %>
           <%= link_to "Perform", jokes_path, id: "comedy-clubs-link" %>
         </div>
       </nav>
@@ -38,10 +38,10 @@
     <div id="main-content" class="container">
     <div id="nav-links-mobile" class="f-large container rows justify-evenly">
       <div>
-        <%= link_to "Discover", random_path, id: "new-jokes-link-m" %>
+        <%= link_to "Discover", root_path, id: "new-jokes-link-m" %>
       </div>
       <div>
-        <%= link_to "My Set", jokes_path, id: "set-link-m" %>
+        <%= link_to "Rehearse", jokes_path, id: "set-link-m" %>
       </div>
       <div>
         <%= link_to "Perform", jokes_path, id: "comedy-clubs-link-m" %>
@@ -52,7 +52,7 @@
     </main>
     <footer>
     <nav class="container no-shadow">
-      <ul id="nav-mobile" class="row">
+      <ul id="nav-mobile" class="row justify-center">
         <li>
           <a href="https://www.linkedin.com/in/russellmolimock/" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i></a>
         </li>

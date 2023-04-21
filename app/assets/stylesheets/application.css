@@ -16,7 +16,7 @@
 
  :root {
     --primary-color: rgb(32, 75, 108);
-    --primary-color-dark: rgb(32, 75, 108);
+    --primary-color-dark: rgb(17, 45, 66);
     --primary-border: 1px solid var(--primary-color);
     --primary-light: #fafafa;
     --light-background: var(--primary-light);
@@ -30,7 +30,12 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: start;
-    overflow-y: scroll;
+    overflow-y: hidden;
+}
+
+body, html {
+    max-height: 100vh!important;
+
 }
 
 .justify-center {
@@ -97,6 +102,7 @@ body {
 
 #nav-links {
     display: none;
+
 }
 
 
@@ -117,12 +123,23 @@ body {
 }
 #main-content {
     min-height: 80vh;
+    max-height: 80vh;
+    overflow-y: scroll;
+}
+
+
+
+#main-content::-webkit-scrollbar {
+    display: none;
 }
 
 .flex-wrap {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
+}
+.flex-wrap .card {
+    margin-bottom: 3rem;
 }
 
 #saved-jokes, #new-jokes {
@@ -147,12 +164,16 @@ body {
 
 .card-content {
     height: 100%;
+    max-height: 20vh;
+    overflow-y: scroll;
     margin-top: 1rem;
 }
 
 .joke-card {
     min-width: 333px;
     max-width: 333px;
+    min-height: 250px;
+    max-height: 20vh;
 }
 
 .f-largest {
@@ -169,9 +190,11 @@ body {
 
 .card {
     padding: 9px;
-    background-color: white;
     justify-content: space-between;
-    min-height: 250px;
+}
+
+.card, .card * {
+    background-color: white;
 }
 
 .funny-or-not {
@@ -187,6 +210,31 @@ body {
 .rows {
     display: flex;
     flex-direction: row;
+}
+
+#reload_all_jokes {
+    display: none;
+}
+.joke-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 7px;
+    list-style: none;
+}
+
+#no-saved-jokes {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+.joke-list li {
+    margin: 7px 0 7px;
+    align-items: center;
+}
+
+.joke-list-item {
+    margin-left: 22px;
+    height: 100%;
 }
 
 #nav-links-mobile * {
@@ -218,8 +266,16 @@ body {
     display: none;
   }
   
+  footer .fab  {
+    max-height: 0px;
+  }
 
-@media only screen and (min-width: 800px) {
+  .funny-or-not .btn-floating {
+    color: red;
+    font-weight: bold;
+  }
+
+@media only screen and (min-width: 784px) {
     .f-largest {
         font-size: xx-large;
     }
@@ -227,9 +283,6 @@ body {
     .flip-direction {
         display: flex;
         flex-direction: row;
-    }
-    #russell {
-        display: none;
     }
     #nav-links {
         display: flex;
@@ -244,5 +297,34 @@ body {
         top: 11%;
         right: 48%;
         width: 4%;
+    }
+
+
+    #reload_all_jokes {
+        display: block;
+        position: fixed;
+        bottom: 16vh;
+        right: 33px;
+        width: 100px;
+        height: 100px;
+        z-index: 100;
+        background-color: white;
+        border-radius: 50%;
+      }
+      #reloader_details {
+        position: fixed;
+        bottom: calc(16vh + 110px);
+        right: 33px;
+        border: var(--primary-border);
+        background-color: white;
+
+      }
+
+    #main-content {
+        overflow-y: hidden;
+    }
+    
+    #reload_all_jokes {
+        color: red;
     }
 }

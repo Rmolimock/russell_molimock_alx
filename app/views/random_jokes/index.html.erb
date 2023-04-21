@@ -82,8 +82,43 @@ function showSaveSuccess() {
   }, 400);
 }
 
+function reloadAll() {
+  const jokeCards = document.querySelectorAll('.card.joke-card');
+  jokeCards.forEach(card => {
+    const form = card
+    const apiUrl = form.dataset.apiUrl;
+    console.log(apiUrl, form);
+    fetchNewJoke(form, apiUrl);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+const reloadButton = document.getElementById('reload_all_jokes');
+  const tooltip = document.getElementById('reloader_details');
+
+  reloadButton.addEventListener('mouseenter', () => {
+    tooltip.classList.remove('hidden');
+  });
+
+  reloadButton.addEventListener('mouseleave', () => {
+    tooltip.classList.add('hidden');
+  });
+
+  function reloadAll() {
+    // Your existing code for reloading all jokes
+  }
+});
+
 
 </script>
+
+<tooltip id="reloader_details" class="hidden">Reload all jokes</tooltip>
+
+<button id="reload_all_jokes" class="btn-floating grey lighten-3 f-largest" onclick=reloadAll()>
+&#8634;
+
+</button>
+
 
 <section id="new-jokes" class="column">
 
@@ -99,7 +134,7 @@ function showSaveSuccess() {
     <%= form.hidden_field :content, value: @random_dad_joke %>
     <%= form.hidden_field :source, value: 'dad' %>
     <div class="justify-around w-100 funny-or-not">
-        <%= form.button "❌", type: 'submit', onclick: "handleRefreshJoke(event)", class: "btn-floating grey lighten-2 border f-large" %>
+        <%= form.button raw('&#8634;'), type: 'submit', onclick: "handleRefreshJoke(event)", class: "btn-floating grey lighten-3 border f-large" %>
       <%= form.button "😆", type: 'submit', onclick: "handleFormSubmit(event)", class: "btn-floating green lighten-2 border f-large" %>
     </div>
     <div id="save-success" class="save-success hidden">saved</div>
@@ -122,7 +157,7 @@ function showSaveSuccess() {
     <%= form.hidden_field :content, value: @random_jokeapi_joke %>
     <%= form.hidden_field :source, value: 'jokesapi' %>
     <div class="justify-around w-100 funny-or-not">
-        <%= form.button "❌", type: 'submit', onclick: "handleRefreshJoke(event)", class: "btn-floating grey lighten-3 f-large" %>
+        <%= form.button raw('&#8634;'), type: 'submit', onclick: "handleRefreshJoke(event)", class: "btn-floating grey lighten-3 f-large" %>
       <%= form.button "😆", type: 'submit', onclick: "handleFormSubmit(event)", class: "btn-floating green lighten-1 f-large" %>
     </div>
   <% end %>
@@ -145,7 +180,7 @@ function showSaveSuccess() {
     <%= form.hidden_field :content, value: @random_official_joke %>
     <%= form.hidden_field :source, value: 'official' %>
     <div class="justify-around w-100 funny-or-not">
-        <%= form.button "❌", type: 'submit', onclick: "handleRefreshJoke(event)", class: "btn-floating grey lighten-3 f-large" %>
+        <%= form.button raw('&#8634;'), type: 'submit', onclick: "handleRefreshJoke(event)", class: "btn-floating grey lighten-3 f-large" %>
       <%= form.button "😆", type: 'submit', onclick: "handleFormSubmit(event)", class: "btn-floating green lighten-1 f-large" %>
     </div>
   <% end %>
@@ -164,7 +199,7 @@ function showSaveSuccess() {
     <%= form.hidden_field :content, value: @random_geek_joke %>
     <%= form.hidden_field :source, value: 'geek' %>
     <div class="justify-around w-100 funny-or-not">
-        <%= form.button "❌", type: 'submit', onclick: "handleRefreshJoke(event)", class: "btn-floating grey lighten-3 f-large" %>
+        <%= form.button raw('&#8634;'), type: 'submit', onclick: "handleRefreshJoke(event)", class: "btn-floating grey lighten-3 f-large" %>
       <%= form.button "😆", type: 'submit', onclick: "handleFormSubmit(event)", class: "btn-floating green lighten-1 f-large" %>
     </div>
   <% end %>

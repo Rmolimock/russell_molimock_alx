@@ -4,27 +4,103 @@
   text-decoration: underline;
 }
 
+#main-content {
+  overflow-y: scroll;
+}
+
 </style>
 
+<script style="display: none;">
+
+function handleDeleteJokeClick(event) {
+  const span = event.target;
+  const url = span.dataset.url;
+  const confirmationMessage = span.dataset.confirm;
+
+  if (confirm(confirmationMessage)) {
+    fetch(url, {
+      method: 'DELETE',
+      headers: { 'Accept': 'application/json', 'X-CSRF-Token': getMetaContent('csrf-token') },
+      credentials: 'same-origin'
+    })
+    .then(response => {
+      if (response.ok) {
+        // Remove the li element from the DOM
+        const cardDiv = span.closest('.card');
+
+        cardDiv.remove();
+      } else {
+        console.error('Error deleting the joke');
+      }
+    })
+    .catch(error => {
+      console.error(error);
+    });
+  }
+}
+
+function getMetaContent(name) {
+  const element = document.querySelector(`meta[name="${name}"]`);
+  return element ? element.content : null;
+}
+
+function handleDeleteAllJokesClick(event) {
+  if (confirm('Are you sure you want to delete all jokes?')) {
+    fetch('/jokes', {
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json',
+        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+      },
+    })
+    .then(response => {
+      if (response.ok) {
+        // Remove all joke cards from the list
+        const jokeCards = document.querySelectorAll('.card');
+        jokeCards.forEach(card => card.remove());
+      } else {
+        console.error('Failed to delete all jokes');
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+  }
+}
+
+
+</script>
+
 <section id="saved-jokes">
-<% if @jokes.present? %>
-  <% @jokes.group_by(&:source).each do |source, jokes| %>
-    <span class="f-large bold">My <%= source %> jokes</span>
-    <ol>
-    <% jokes.each do |joke| %>
-      <li>
-        <%= joke.content %>
-      </li>
-    <% end %>
-    </ol>
+  <% if @jokes.present? %>
+    <% @jokes.group_by(&:source).each do |source, jokes| %>
+      <span class="f-large bold">My <%= source %> jokes</span>
+      <ol class="joke-list w-100 justify-center">
+        <% jokes.each do |joke| %>
+          <div class="card w-100">
+          <li class="rows w-100">
+          <%= content_tag :span, "❌", class: "delete-joke", data: { url: joke_path(joke), confirm: 'Are you sure? This can not be undone.' }, onclick: "handleDeleteJokeClick(event)" %>
+
+
+            <span class="joke-list-item">
+            <%= joke.content %> 
+            </span>
+            </li>
+            </div>
+            <% end %>
+      </ol>
+
   <% end %>
   
   <br><br>
-  <%= button_to 'Delete all jokes', jokes_path, method: :delete, data: { confirm: 'Are you sure?' }, html: {id: "delete-all-form"} %>
+  <button class="btn red darken-3" onclick=handleDeleteAllJokesClick(event)>Delete all jokes</button>
   <br><br>
-<% end %>
-<% if @jokes.blank? %>
-  <h4 class="center-align">Jokes you enjoyed will be saved here.</h4>
+
+ <% else %>
+ <div class="column w-100 h-100 align-center">
+  <span id="no-saved-jokes" class="w-100 f-large justify-center">Laugh react to jokes to build up your set.</span>
+  <image src="<%= asset_path('no-jokes.gif') %>" width=333 height=300>
+  </div>
 <% end %>
 
 
