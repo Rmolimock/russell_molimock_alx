@@ -31,7 +31,9 @@ class JokesController < ApplicationController
 
     def destroy_all
       Joke.delete_all
-      redirect_to jokes_path
+      respond_to do |format|
+        format.json { head :no_content }
+      end
     end
 
     

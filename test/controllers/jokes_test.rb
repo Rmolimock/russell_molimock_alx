@@ -55,12 +55,11 @@ class JokesControllerTest < ActionDispatch::IntegrationTest
     Joke.create(@joke_params)
     Joke.create(@joke_params)
     
-    delete jokes_path
+    delete jokes_path, headers: { 'Accept': 'application/json' }
     
     assert_equal 0, Joke.count
-    assert_redirected_to jokes_path
-    follow_redirect!
   end
+  
 
   teardown do
     Joke.delete_all
