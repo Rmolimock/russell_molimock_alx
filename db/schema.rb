@@ -10,12 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_18_143733) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_23_220050) do
   create_table "jokes", force: :cascade do |t|
     t.string "content"
     t.string "source"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "jokes_standup_sets", id: false, force: :cascade do |t|
+    t.integer "joke_id", null: false
+    t.integer "standup_set_id", null: false
+  end
+
+  create_table "standup_sets", force: :cascade do |t|
+    t.integer "number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name"
   end
 
 end
