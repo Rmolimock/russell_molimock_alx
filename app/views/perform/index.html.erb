@@ -1,0 +1,56 @@
+<style style="display: none;">
+
+#perform-link, #perform-link-m {
+  text-decoration: underline;
+}
+
+#main-content {
+    overflow-y: scroll;
+}
+
+
+  #zip-code-form {
+    padding: 1em;
+    min-width: 300px;
+  }
+
+  #perform h2 {
+    margin-bottom: 1em;
+    font-size: 2em;
+    }
+
+</style>
+
+<script style="display: none;">
+
+document.addEventListener('DOMContentLoaded', function() {
+  var elems = document.querySelectorAll('select');
+  var instances = M.FormSelect.init(elems);
+});
+
+</script>
+
+
+
+
+<section id="perform" class="align-center column">
+  <h2 class="f-large">Comedy Clubs Near You</h2>
+
+  <%= form_tag(clubs_path, method: "get", id: "zip-code-form", class: "row card") do %>
+    <div class="row">
+      <div class="input-field col">
+        <%= text_field_tag :zip_code, nil, class: "validate", required: true, id: "zip-code" %>
+        <%= label_tag :zip_code, "Zip Code", for: "zip-code" %>
+      </div>
+    </div>
+    <div>
+      <%= button_tag(type: "submit", class: "btn green lighten-2") do %>
+        Find Comedy Clubs
+        <%= content_tag(:i, "search", class: "material-icons right green lighten-2") %>
+      <% end %>
+    </div>
+  <% end %>
+
+
+
+</section>
