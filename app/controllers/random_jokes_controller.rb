@@ -7,6 +7,18 @@ class RandomJokesController < ApplicationController
       @random_jokeapi_joke = fetch_random_jokeapi_joke
       @random_official_joke = fetch_random_official_joke
       @random_geek_joke = fetch_random_geek_joke
+
+      respond_to do |format|
+        format.html
+        format.json do
+          render json: {
+            random_dad_joke: @random_dad_joke,
+            random_jokeapi_joke: @random_jokeapi_joke,
+            random_official_joke: @random_official_joke,
+            random_geek_joke: @random_geek_joke
+          }
+        end
+      end
     end
 
     def new_dad_joke
