@@ -1,0 +1,53 @@
+<style style="display: none;">
+
+#main-content {
+    overflow-y: scroll;
+}
+
+#back-btn {
+    margin-bottom: 1rem;
+}
+#club {
+    margin-bottom: 3rem;
+}
+
+</style>
+
+
+<section id="clubs">
+
+<%= link_to perform_path, class: "btn green lighten-2", id: "back-btn"  do %>
+    <i class="material-icons left green lighten-2">arrow_back</i>Back
+  <% end %>
+  
+  
+
+<div id="comedy-club-list">
+  <% if @clubs.present? %>
+    <% @clubs.each do |club| %>
+      <div id="club" class="card">
+        <div class="card-stacked">
+          <div class="card-content">
+            <h3 class="club-name"><%= club['name'] %></h3>
+            <p class="club-rating">Rating: <%= club['rating'] %></p>
+            <p class="club-review-count">Reviews: <%= club['review_count'] %></p>
+            <p class="club-address">Address: <%= club['location']['display_address'].join(", ") %></p>
+          </div>
+          <div class="card-action">
+            <%= link_to "More Info", club['url'], target: "_blank", class: "club-url" %>
+          </div>
+        </div>
+        <div class="card-image">
+          <%= link_to club['url'], target: "_blank", class: "club-image-link" do %>
+            <%= image_tag club['image_url'], alt: club['name'] %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <p>No comedy clubs found.</p>
+  <% end %>
+</div>
+
+
+</section>
