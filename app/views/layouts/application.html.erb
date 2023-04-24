@@ -22,13 +22,13 @@
     <% end %>
     <header class="align-center">
       <nav class="container no-shadow flip-direction align-center justify-between">
-        <div class="f-largest">
-          <%= link_to "Standup Studio", root_path, style: 'vertical-align: middle;' %>
+        <div class="f-largest p-0">
+          <%= link_to "Standup Studio", root_path, style: 'vertical-align: middle;', id: "home" %>
         </div>
         <div id="nav-links" class="flip-direction f-large justify-between">
           <%= link_to "Discover", root_path, id: "new-jokes-link" %>
           <%= link_to "Rehearse", jokes_path, id: "set-link" %>
-          <%= link_to "Perform", jokes_path, id: "comedy-clubs-link" %>
+          <%= link_to "Perform", perform_path, id: "perform-link" %>
         </div>
       </nav>
     </header>
@@ -44,7 +44,7 @@
         <%= link_to "Rehearse", jokes_path, id: "set-link-m" %>
       </div>
       <div>
-        <%= link_to "Perform", jokes_path, id: "comedy-clubs-link-m" %>
+        <%= link_to "Perform", perform_path, id: "perform-link-m" %>
       </div>
     </div>
     <%= yield %>

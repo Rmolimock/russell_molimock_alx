@@ -155,7 +155,7 @@ const reloadButton = document.getElementById('reload_all_jokes');
       <%= @random_jokeapi_joke %>
     </div>
     <%= form.hidden_field :content, value: @random_jokeapi_joke %>
-    <%= form.hidden_field :source, value: 'jokesapi' %>
+    <%= form.hidden_field :source, value: 'jokesAPI' %>
     <div class="justify-around w-100 funny-or-not">
         <%= form.button raw('&#8634;'), type: 'submit', onclick: "handleRefreshJoke(event)", class: "btn-floating grey lighten-3 f-large" %>
       <%= form.button "😆", type: 'submit', onclick: "handleFormSubmit(event)", class: "btn-floating green lighten-1 f-large" %>
@@ -178,7 +178,7 @@ const reloadButton = document.getElementById('reload_all_jokes');
       <%= @random_official_joke %>
     </div>
     <%= form.hidden_field :content, value: @random_official_joke %>
-    <%= form.hidden_field :source, value: 'official' %>
+    <%= form.hidden_field :source, value: 'officialJokesAPI' %>
     <div class="justify-around w-100 funny-or-not">
         <%= form.button raw('&#8634;'), type: 'submit', onclick: "handleRefreshJoke(event)", class: "btn-floating grey lighten-3 f-large" %>
       <%= form.button "😆", type: 'submit', onclick: "handleFormSubmit(event)", class: "btn-floating green lighten-1 f-large" %>

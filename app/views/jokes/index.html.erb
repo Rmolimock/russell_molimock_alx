@@ -8,9 +8,25 @@
   overflow-y: scroll;
 }
 
+.delete-joke {
+  cursor: pointer;
+}
+
 </style>
 
 <script style="display: none;">
+
+
+function createNoJokesScreen() {
+  const savedJokesSection = document.getElementById('saved-jokes');
+    const noJokesImagePath = savedJokesSection.dataset.noJokesImagePath;
+    savedJokesSection.innerHTML = `
+      <div class="column w-100 h-100 align-center">
+        <span id="no-saved-jokes" class="w-100 f-large justify-center">Laugh react to jokes to build up your set.</span>
+        <image src="${noJokesImagePath}" width=333 height=300>
+      </div>
+    `;
+}
 
 function handleDeleteJokeClick(event) {
   const span = event.target;
@@ -32,14 +48,7 @@ function handleDeleteJokeClick(event) {
         // Check if there are no more jokes left
         const remainingJokes = document.querySelectorAll('.card');
         if (remainingJokes.length === 0) {
-          const savedJokesSection = document.getElementById('saved-jokes');
-          const noJokesImagePath = savedJokesSection.dataset.noJokesImagePath;
-          savedJokesSection.innerHTML = `
-            <div class="column w-100 h-100 align-center">
-              <span id="no-saved-jokes" class="w-100 f-large justify-center">Laugh react to jokes to build up your set.</span>
-              <image src="${noJokesImagePath}" width=333 height=300>
-            </div>
-          `;
+          createNoJokesScreen();
         }
       } else {
         console.error('Error deleting the joke');
@@ -69,9 +78,7 @@ function handleDeleteAllJokesClick(event) {
     })
     .then(response => {
       if (response.ok) {
-        // Remove all joke cards from the list
-        const jokeCards = document.querySelectorAll('.card');
-        jokeCards.forEach(card => card.remove());
+        createNoJokesScreen();
       } else {
         console.error('Failed to delete all jokes');
       }
