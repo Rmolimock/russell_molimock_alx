@@ -51,5 +51,19 @@ class StandupSetsControllerTest < ActionDispatch::IntegrationTest
     StandupSet.destroy_all
     Joke.destroy_all
   end
+
+  test "remove a joke from a standup set" do
+    joke = Joke.create(content: 'Why did the chicken cross the road?', source: 'JokeAPI')
+    standup_set = StandupSet.create(name: 'Test Set 2')
+    standup_set.jokes << joke
+  
+    delete remove_joke_standup_set_path(standup_set.id, joke_id: joke.id), headers: { 'Accept' => 'application/json' }
+  
+    standup_set.reload
+    joke.reload
+    
+    assert_equal 0, standup_set.jokes.count
+    assert_response :ok
+  end
   
 end

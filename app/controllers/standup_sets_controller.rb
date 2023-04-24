@@ -40,13 +40,26 @@ class StandupSetsController < ApplicationController
       if @standup_set && @joke
         @standup_set.jokes << @joke
         respond_to do |format|
-          format.json { render json: { standup_set: @standup_set, debug: { standup_set: @standup_set.inspect, joke: @joke.inspect, jokes_in_standup_set: @standup_set.jokes.inspect } }, status: :ok }
+          format.json { render json: { standup_set: @standup_set }, status: :ok }
         end
       else
         head :not_found
       end
     end
-    
+
+    def remove_joke
+      @standup_set = StandupSet.find_by(id: params[:id])
+      @joke = Joke.find_by(id: params[:joke_id])
+
+      if @standup_set && @joke
+        @standup_set.jokes.delete(@joke)
+        respond_to do |format|
+          format.json { render json: { standup_set: @standup_set }, status: :ok }
+        end
+      else
+        head :not_found
+      end
+    end
 
     private
 

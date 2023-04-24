@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   resources :standup_sets, only: [:create, :index, :destroy] do
     member do
       post 'jokes/:joke_id', to: 'standup_sets#add_joke', as: 'add_joke'
+      delete 'jokes/:joke_id', to: 'standup_sets#remove_joke', as: 'remove_joke'
     end
   end
   
