@@ -40,6 +40,8 @@ class JokesController < ApplicationController
   
     def index
       @jokes = Joke.all
+      @standup_sets = StandupSet.all
+      
     end
   
     private

@@ -19,7 +19,7 @@ Rails.application.routes.draw do
 
   get '/clubs', to: 'clubs#index'
 
-  resources :standup_sets, only: [:create, :index, :destroy] do
+  resources :standup_sets, only: [:create, :index, :destroy, :show] do
     member do
       post 'jokes/:joke_id', to: 'standup_sets#add_joke', as: 'add_joke'
       delete 'jokes/:joke_id', to: 'standup_sets#remove_joke', as: 'remove_joke'

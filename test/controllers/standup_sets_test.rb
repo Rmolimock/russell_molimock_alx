@@ -65,5 +65,22 @@ class StandupSetsControllerTest < ActionDispatch::IntegrationTest
     assert_equal 0, standup_set.jokes.count
     assert_response :ok
   end
+
+  test "get one standup set by id" do
+    standup_set = StandupSet.create(name: 'Test Set')
+    
+    get standup_set_path(standup_set.id), headers: { 'Accept' => 'application/json' }
+    
+    assert_response :ok
+    assert_equal 'application/json', @response.media_type
+  end
+
+  test " can't get one with invalid id" do
+    standup_set = StandupSet.create(name: 'Test Set')
+    
+    get standup_set_path('invalid id'), headers: { 'Accept' => 'application/json' }
+    
+    assert_response :not_found
+  end
   
 end

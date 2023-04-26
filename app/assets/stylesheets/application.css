@@ -134,7 +134,10 @@ body, html {
 #club-header > * {
     width: 100%;
 }
-
+ol, ul {
+    list-style: none;
+    padding-left: 0;
+}
 #comedy-club-list {
     padding-bottom: 5rem;
 }
@@ -163,9 +166,7 @@ body, html {
     margin-bottom: 3rem;
 }
 
-section {
-    padding-top: 3rem;
-}
+
 
 .bg-primary, .bg-primary * {
     background-color: var(--primary-color);
@@ -252,7 +253,6 @@ section {
 }
 .joke-list li {
     margin: 7px 0 7px;
-    align-items: center;
 }
 
 .joke-list-item {
@@ -303,10 +303,37 @@ section {
     padding: 0;
   }
 
+  .flip-axis-col {
+    display: flex;
+    flex-direction: column;
+  }
+  section {
+    margin-top: 3rem!important;
+}
+
+.hidden-desktop {
+    display: block;
+}
+.hidden-mobile {
+    display: none;
+}
+
 @media only screen and (min-width: 784px) {
-   
+    .hidden-desktop {
+        display: none;
+    }
+    .hidden-mobile {
+        display: block;
+    }
     .f-largest {
         font-size: xx-large;
+    }
+    .joke-list li {
+        align-items: center;
+    }
+    .flip-axis-col {
+        display: flex;
+        flex-direction: row;
     }
     
     .flip-direction {
@@ -363,6 +390,13 @@ section {
         background-color: white;
 
       }
+
+      .tooltip {
+        position: absolute;
+        right: -1000px;
+  z-index: 100;
+      }
+
 
     #main-content {
         overflow-y: hidden;
