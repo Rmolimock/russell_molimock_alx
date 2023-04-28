@@ -114,15 +114,8 @@ function createAssignButton(jokeId, content, setId) {
   function removeJokeFromCurrentSet(event) {
     const btn = event.target;
     const jokeId = btn.dataset.id;
-    
     const standupSetId = getSelectedSetId();
-    if (!standupSetId) {
-      console.error('No set is selected.');
-      return;
-    }
     const url = `/standup_sets/${standupSetId}/jokes/${jokeId}`
-  
-    console.log(`Removing joke ${jokeId} from set ${standupSetId}...`);
   
     fetch(url, {
       method: 'DELETE',
@@ -280,30 +273,22 @@ function createAssignButton(jokeId, content, setId) {
   document.addEventListener('DOMContentLoaded', () => {
     const setList = document.getElementById('set-list');
     const setItems = setList.querySelectorAll('li');
-    let selectedSet = null;
+    let selectedSet = setList.querySelector('li.selected');
   
     setItems.forEach((setItem) => {
       setItem.addEventListener('click', () => {
         if (selectedSet) {
           selectedSet.classList.remove('selected');
-        } else {
-          const initialSelectedSet = document.querySelector('#set-list li.selected');
-          if (initialSelectedSet) {
-            initialSelectedSet.classList.remove('selected');
-          }
         }
   
         setItem.classList.add('selected');
         selectedSet = setItem;
-  
         const setUrl = setItem.dataset.url;
   
         fetch(setUrl)
           .then(response => response.json())
           .then(data => {
-            console.log('Received data:', data);
             const jokes = Array.isArray(data) ? data : data.jokes;
-  
             const currentSetJokes = document.getElementById('current-set-jokes');
   
             if (jokes.length === 0) {

@@ -1,7 +1,7 @@
 
 
 
-function handleFormSubmit(event) {
+function saveJoke(event) {
     event.preventDefault();
     const form = event.target.closest('form');
     const apiUrl = form.dataset.apiUrl;
@@ -36,7 +36,7 @@ function handleFormSubmit(event) {
     })
     .then(response => response.json())
     .then(data => {
-      const jokeCardContent = form.querySelector('.card-content.grey.lighten-3');
+      const jokeCardContent = form.querySelector('.card-content');
       let joke;
   
       if (apiUrl === '/new_dad_joke') {
@@ -78,13 +78,12 @@ function handleFormSubmit(event) {
     jokeCards.forEach(card => {
       const form = card
       const apiUrl = form.dataset.apiUrl;
-      console.log(apiUrl, form);
       fetchNewJoke(form, apiUrl);
     });
   }
   
   document.addEventListener('DOMContentLoaded', () => {
-  const reloadButton = document.getElementById('reload_all_jokes');
+    const reloadButton = document.getElementById('reload_all_jokes');
     const tooltip = document.getElementById('reloader_details');
   
     reloadButton.addEventListener('mouseenter', () => {
