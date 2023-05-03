@@ -1,162 +1,162 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_tree .
- *= require_self
- */
-
- :root {
+:root {
     --primary-color: rgb(32, 75, 108);
     --primary-color-dark: rgb(17, 45, 66);
     --primary-border: 1px solid var(--primary-color);
     --primary-light: #fafafa;
     --light-background: var(--primary-light);
 }
-
-.border {
-    border: var(--primary-border);
-}
-
 body {
     display: flex;
     flex-direction: column;
     justify-content: start;
     overflow-y: hidden;
 }
-
 body, html {
     max-height: 100vh!important;
-
 }
 
-.justify-center {
-    display: flex;
-    justify-content: center;
-}
 
-.justify-center-all *, .justify-center-all * {
-    display: flex;
-    justify-content: center;
-}
-
-.align-center {
-    display: flex;
-    align-items: center;
-}
-
-.align-center-all *, .align-center-all * {
-    display: flex;
-    align-items: center;
-}
-
-.justify-between {
-    display: flex;
-    justify-content: space-between;
-}
-
-.justify-between-all *, .justify-between-all * {
-    display: flex;
-    justify-content: space-between;
-}
-
-.justify-around {
-    display: flex;
-    justify-content: space-around;
-}
-
-.justify-around-all *, .justify-around-all * {
-    display: flex;
-    justify-content: space-around;
-}
-
-.justify-end {
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
-}
-
-.justify-end-all *, .justify-end-all * {
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
-}
-
-.justify-evenly {
-    display: flex;
-    justify-content: space-evenly;
-}
-
-.justify-evenly-all *, .justify-evenly-all * {
-    display: flex;
-    justify-content: space-evenly;
-}
-
+/* Navbar */
 #nav-links {
     display: none;
-
-}
-
-
-.f-large {
-    font-size: large;
-}
-
-.logo {
-    margin-right: 12px;
 }
 .no-shadow {
     box-shadow: none;
 }
-
-.column {
-    display: flex;
-    flex-direction: column;
+#nav-links-mobile * {
+    background-color: var(--primary-light);
+    margin-top: 2rem;
 }
-#main-content {
-    min-height: 80vh;
-    max-height: 80vh;
-    overflow-y: scroll;
-}
-#club-header {
-    display: flex;
-    flex-direction: column-reverse;
+footer .fab  {
+    max-height: 0px;
 }
 
-#club-header > * {
-    width: 100%;
+
+/* Single Style Classes */
+.f-largest {
+    font-size: x-large;
+}
+.f-large {
+    font-size: large;
+}
+.bold {
+    font-weight: bold;
 }
 ol, ul {
     list-style: none;
     padding-left: 0;
 }
-#comedy-club-list {
-    padding-bottom: 5rem;
+.h-100 {
+    height: 100%;
 }
-#zip-code-form * {
-    max-height: 10vh;
+.w-100 {
+    width: 100%;
+}
+.hidden-desktop {
+    display: block;
+}
+.hidden-mobile {
+    display: none;
+}
+.hidden {
+    display: none;
+}
+.p-0 {
+    display: flex;
+    padding: 0;
+}
+.flip-axis-col {
+    display: flex;
+    flex-direction: column;
 }
 
-.card-image, .card-image a, .card-image a img {
-    width: auto;
-    max-width: none!important;
-    max-height: 100vh;
+
+/* Main Content */
+#main-content {
+    min-height: 80vh;
+    max-height: 80vh;
+    overflow-y: scroll;
 }
-
-
-
 #main-content::-webkit-scrollbar {
     display: none;
 }
+section {
+    margin-top: 3rem!important;
+}
+.bg-primary, .bg-primary * {
+    background-color: var(--primary-color);
+}
+.bg-light, .bg-light * {
+    background-color: var(--primary-light);
+}
+.card {
+    padding: 9px;
+    justify-content: space-between;
+}
+.card, .card * {
+    background-color: white;
+}
 
+
+/* flex classes */
+.rows {
+    display: flex;
+    flex-direction: row;
+}
+.column {
+    display: flex;
+    flex-direction: column;
+}
+.justify-center {
+    display: flex;
+    justify-content: center;
+}
+.justify-center-all *, .justify-center-all * {
+    display: flex;
+    justify-content: center;
+}
+.align-center {
+    display: flex;
+    align-items: center;
+}
+.align-center-all *, .align-center-all * {
+    display: flex;
+    align-items: center;
+}
+.justify-between {
+    display: flex;
+    justify-content: space-between;
+}
+.justify-between-all *, .justify-between-all * {
+    display: flex;
+    justify-content: space-between;
+}
+.justify-around {
+    display: flex;
+    justify-content: space-around;
+}
+.justify-around-all *, .justify-around-all * {
+    display: flex;
+    justify-content: space-around;
+}
+.justify-end {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+.justify-end-all *, .justify-end-all * {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+.justify-evenly {
+    display: flex;
+    justify-content: space-evenly;
+}
+.justify-evenly-all *, .justify-evenly-all * {
+    display: flex;
+    justify-content: space-evenly;
+}
 .flex-wrap {
     display: flex;
     flex-wrap: wrap;
@@ -167,158 +167,9 @@ ol, ul {
 }
 
 
-
-.bg-primary, .bg-primary * {
-    background-color: var(--primary-color);
-}
-.dropdown-content {
-    max-height: none!important;
-  }
-.bg-light, .bg-light * {
-    background-color: var(--primary-light);
-}
-
-.h-100 {
-    height: 100%;
-}
-
-.w-100 {
-    width: 100%;
-}
-
-.joke-card .card-content {
-    height: 100%;
-    max-height: 20vh;
-    overflow-y: scroll;
-    margin-top: 1rem;
-}
-
-.joke-card {
-    min-width: 333px;
-    max-width: 333px;
-    min-height: 250px;
-    max-height: 20vh;
-}
-
-.f-largest {
-    font-size: x-large;
-}
-
-.f-large {
-    font-size: large;
-}
-
-.bold {
-    font-weight: bold;
-}
-
-.card {
-    padding: 9px;
-    justify-content: space-between;
-}
-
-.card, .card * {
-    background-color: white;
-}
-
-.funny-or-not {
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-    background-color: white;
-}
-
-.flip-direction {
-    display: block;
-}
-
-.rows {
-    display: flex;
-    flex-direction: row;
-}
-
-#reload_all_jokes {
-    display: none;
-}
-.joke-list {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 7px;
-    list-style: none;
-}
-
-#no-saved-jokes {
-    margin-bottom: 2rem;
-    text-align: center;
-}
-.joke-list li {
-    margin: 7px 0 7px;
-}
-
-.joke-list-item {
-    margin-left: 22px;
-    height: 100%;
-}
-
-#nav-links-mobile * {
-    background-color: var(--primary-light);
-    margin-top: 2rem;
-}
-
-#nav-links-mobile > *:hover {
-    font-weight: bold;
-}
-
-.save-success {
-    position: fixed;
-    top: 7px;
-    right: 12px;
-    width: fit-content;
-    background-color: #7dcc80;
-    color: white;
-    padding: 9px;
-    font-size: large;
-    border-radius: 7px;
-    z-index: 100;
-    transition: opacity 0.5s;
-    display: flex;
-    justify-content: center;
-  }
-
-  
-  .hidden {
-    display: none;
-  }
-  
-  footer .fab  {
-    max-height: 0px;
-  }
-
-  .funny-or-not .btn-floating {
-    color: red;
-    font-weight: bold;
-  }
-  .p-0 {
-    display: flex;
-    padding: 0;
-  }
-
-  .flip-axis-col {
-    display: flex;
-    flex-direction: column;
-  }
-  section {
-    margin-top: 3rem!important;
-}
-
-.hidden-desktop {
-    display: block;
-}
-.hidden-mobile {
-    display: none;
-}
-
 @media only screen and (min-width: 784px) {
+
+    /* Single Style Classes */
     .hidden-desktop {
         display: none;
     }
@@ -328,18 +179,12 @@ ol, ul {
     .f-largest {
         font-size: xx-large;
     }
-    .joke-list li {
-        align-items: center;
-    }
     .flip-axis-col {
         display: flex;
         flex-direction: row;
     }
-    
-    .flip-direction {
-        display: flex;
-        flex-direction: row;
-    }
+
+    /* Navbar */
     #nav-links {
         display: flex;
         align-items: end;
@@ -349,6 +194,12 @@ ol, ul {
         width: 100%;
         text-align: center;
     }
+    #nav-links > *:hover {
+        background-color: var(--primary-color-dark);
+    }
+    #nav-links-mobile {
+        display: none;
+    }
     #home {
         padding: 9px;
         height: 100%;
@@ -357,56 +208,7 @@ ol, ul {
     #home:hover, #home *:hover {
         background-color: var(--primary-color-dark);
     }
-    #nav-links > *:hover {
-        background-color: var(--primary-color-dark);
-    }
-    #nav-links-mobile {
-        display: none;
-    }
-
-    .save-success {
-        top: 11%;
-        right: 48%;
-        width: 4%;
-    }
-
-
-    #reload_all_jokes {
-        display: block;
-        position: fixed;
-        bottom: 16vh;
-        right: 33px;
-        width: 100px;
-        height: 100px;
-        z-index: 100;
-        background-color: white;
-        border-radius: 50%;
-      }
-      #reloader_details {
-        position: fixed;
-        bottom: calc(16vh + 110px);
-        right: 33px;
-        border: var(--primary-border);
-        background-color: white;
-
-      }
-
-      .tooltip {
-        position: absolute;
-        right: -1000px;
-  z-index: 100;
-      }
-
-
     #main-content {
         overflow-y: hidden;
-    }
-    
-    #reload_all_jokes {
-        color: red;
-    }
-
-    #zip-code-form {
-        max-width: 500px;
     }
 }

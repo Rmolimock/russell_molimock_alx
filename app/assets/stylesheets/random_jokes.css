@@ -1,0 +1,66 @@
+.joke-card .card-content {
+    height: 100%;
+    max-height: 20vh;
+    overflow-y: scroll;
+    margin-top: 1rem;
+}
+.joke-card {
+    min-width: 333px;
+    max-width: 333px;
+    min-height: 250px;
+    max-height: 20vh;
+}
+.funny-or-not {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    background-color: white;
+}
+.funny-or-not * {
+    color: red;
+    font-weight: bold;
+}
+.save-success {
+    position: fixed;
+    top: 7px;
+    right: 12px;
+    width: fit-content;
+    background-color: #7dcc80;
+    color: white;
+    padding: 9px;
+    font-size: large;
+    border-radius: 7px;
+    z-index: 100;
+    transition: opacity 0.5s;
+    justify-content: center;
+}
+#reload_all_jokes {
+    display: none;
+}
+
+@media only screen and (min-width: 784px) {
+    #reload_all_jokes {
+        display: block;
+        position: fixed;
+        bottom: 16vh;
+        right: 33px;
+        width: 100px;
+        height: 100px;
+        z-index: 100;
+        background-color: white;
+        border-radius: 50%;
+        color: red;
+        font-weight: bold;
+}
+    #reloader_details {
+        position: fixed;
+        bottom: calc(16vh + 110px);
+        right: 33px;
+        border: var(--primary-border);
+        background-color: white;
+    }
+    .tooltip {
+        position: absolute;
+        right: -1000px;
+        z-index: 100;
+    }
+}

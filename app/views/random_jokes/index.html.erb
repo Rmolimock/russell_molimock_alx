@@ -6,6 +6,7 @@
 
 </style>
 
+<%= stylesheet_link_tag 'random_jokes' %>
 <%= javascript_include_tag 'random_jokes' %>
 
 
@@ -32,7 +33,7 @@
     <%= form.hidden_field :source, value: 'dad' %>
     <div class="justify-around w-100 funny-or-not">
         <%= form.button raw('&#8634;'), type: 'submit', onclick: "handleRefreshJoke(event)", class: "btn-floating grey lighten-3 border f-large" %>
-      <%= form.button "😆", type: 'submit', onclick: "handleFormSubmit(event)", class: "btn-floating green lighten-2 border f-large" %>
+      <%= form.button "😆", type: 'submit', onclick: "saveJoke(event)", class: "btn-floating green lighten-2 border f-large" %>
     </div>
     <div id="save-success" class="save-success hidden">saved</div>
   <% end %>
@@ -55,7 +56,7 @@
     <%= form.hidden_field :source, value: 'jokesAPI' %>
     <div class="justify-around w-100 funny-or-not">
         <%= form.button raw('&#8634;'), type: 'submit', onclick: "handleRefreshJoke(event)", class: "btn-floating grey lighten-3 f-large" %>
-      <%= form.button "😆", type: 'submit', onclick: "handleFormSubmit(event)", class: "btn-floating green lighten-1 f-large" %>
+      <%= form.button "😆", type: 'submit', onclick: "saveJoke(event)", class: "btn-floating green lighten-1 f-large" %>
     </div>
   <% end %>
 
@@ -78,7 +79,7 @@
     <%= form.hidden_field :source, value: 'officialJokesAPI' %>
     <div class="justify-around w-100 funny-or-not">
         <%= form.button raw('&#8634;'), type: 'submit', onclick: "handleRefreshJoke(event)", class: "btn-floating grey lighten-3 f-large" %>
-      <%= form.button "😆", type: 'submit', onclick: "handleFormSubmit(event)", class: "btn-floating green lighten-1 f-large" %>
+      <%= form.button "😆", type: 'submit', onclick: "saveJoke(event)", class: "btn-floating green lighten-1 f-large" %>
     </div>
   <% end %>
 
@@ -97,7 +98,7 @@
     <%= form.hidden_field :source, value: 'geek' %>
     <div class="justify-around w-100 funny-or-not">
         <%= form.button raw('&#8634;'), type: 'submit', onclick: "handleRefreshJoke(event)", class: "btn-floating grey lighten-3 f-large" %>
-      <%= form.button "😆", type: 'submit', onclick: "handleFormSubmit(event)", class: "btn-floating green lighten-1 f-large" %>
+      <%= form.button "😆", type: 'submit', onclick: "saveJoke(event)", class: "btn-floating green lighten-1 f-large" %>
     </div>
   <% end %>
 
